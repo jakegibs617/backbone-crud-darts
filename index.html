@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Darts</title>
+  <!-- load the bootstrap stylesheet -->
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+  <!-- load the libraries we need -->
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/zepto/1.1.3/zepto.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+  <!-- load our scripts -->
+  <script type="text/javascript" src="js/user_router.js"></script>
+  <script type="text/javascript" src="js/models/user_model.js"></script>
+  <script type="text/javascript" src="js/views/user_index.js"></script>
+  <script type="text/javascript" src="js/views/user_row.js"></script>
+  <script type="text/javascript" src="js/views/user_new.js"></script>
+  <script type="text/javascript" src="js/views/user_edit.js"></script>
+  <script type="text/javascript" src="js/views/user_show.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Dart Rankings</h1>
+      <p class="lead">
+        Backbone front end app where a user can enter their name and score. 
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6" id="primary-content">
+        <!-- the container that gets populated with the index -->
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- the form, used for create and edit -->
+  <script type="text/jst" id="formTemplate">
+    <div class="well">
+      <div class="alert alert-danger fade in" style="display:none;"></div>
+      <form>
+        <h2><%= name %></h2>
+        <div class="form-group">
+          <label>Name:</label>
+          <input type="text" class="form-control" name="name" value="<%= name %>" />
+        </div>
+        <div class="form-group">
+          <label>Score:</label>
+          <input type="text" class="form-control" name="score" value="<%= score %>" />
+        </div>
+        <button class="save btn btn-large btn-info" type="submit">Save</button>
+        <a href="#users/index" class="btn btn-large">Cancel</a>
+      </form>
+    </div>
+  </script>
+
+  <!-- the index container -->
+  <script type="text/template" id="indexTemplate">
+    <div class="well">
+      <a class="btn btn-block btn-large btn-info" href="#user/new">Create New User</a>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th width="20%">name</th>
+          <th width="20%">score</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </script>
+
+  <!-- the row template, renders once for each item in the index -->
+  <script type="text/template" id="rowTemplate">
+    <td>
+      <a href="#user/<%= id %>/view"><%= name %></a>
+    </td>
+    <td><%= score %></td>
+    <td>
+      <a href="#" class="delete btn btn-danger btn-small">delete</a>
+    </td>
+  </script>
+      
+      <a href="#" class="deleteall btn btn-danger btn-small">deleteall</a>
+
+  <!-- the show template -->
+  <script type="text/template" id="showTemplate">
+    <ol class="breadcrumb">
+      <li>
+        <a href="#users/index">All Users</a>
+      </li>
+      <li class="active">View User</li>
+    </ol>
+
+    <h2>
+      <%= name %>
+      <small>by: <%= score %></small>
+    </h2>
+
+    <hr/>
+    <a class="btn btn-info btn-block" href="#user/<%= id %>/edit">Edit User</a>
+  </script>
+
+  <!-- kick off the app -->
+  <script type="text/javascript">
+    var router = new APP.UserRouter({
+      users: new APP.UserCollection()
+    });
+
+    
+    // now that everyting is setup we tell backbone to watch the urls
+    Backbone.history.start();
+  </script>
+</body>
+</html>
