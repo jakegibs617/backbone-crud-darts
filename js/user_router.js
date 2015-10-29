@@ -4,8 +4,7 @@ APP.UserRouter = Backbone.Router.extend({
   routes: {
     "user/new": "create",
     "users/index": "index",
-    "user/:id/edit": "edit",
-    "user/:id/view": "show"
+    "user/:id/edit": "edit"
   },
 
   initialize: function (options) {
@@ -15,10 +14,6 @@ APP.UserRouter = Backbone.Router.extend({
     this.users.bind('add', this.updateDebug, this);
     this.users.bind('remove', this.updateDebug, this);
     this.index();
-  },
-
-  updateDebug: function () {
-    $('#output').text(JSON.stringify(this.users.toJSON(), null, 4));
   },
 
   create: function () {
@@ -32,14 +27,6 @@ APP.UserRouter = Backbone.Router.extend({
   edit: function (id) {
     var user = this.users.get(id);
     this.currentView = new APP.UserEditView({user: user});
-    $('#primary-content').html(this.currentView.render().el);
-  },
-
-  show: function (id) {
-    var user = this.users.get(id);
-    this.currentView = new APP.UserShowView({
-      user: user
-    });
     $('#primary-content').html(this.currentView.render().el);
   },
 

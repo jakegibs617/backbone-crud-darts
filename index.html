@@ -74,16 +74,17 @@
 
   <!-- the row template, renders once for each item in the index -->
   <script type="text/template" id="rowTemplate">
-    <td>
-      <a href="#user/<%= id %>/view"><%= name %></a>
-    </td>
+
+    <td><%= name %></td>
     <td><%= score %></td>
-    <td>
-      <a href="#" class="delete btn btn-danger btn-small">delete</a>
-    </td>
   </script>
       
-      <a href="#" class="deleteall btn btn-danger btn-small">deleteall</a>
+    <button class="clear btn btn-danger btn-small">Remove all scores</button>
+    <script type="text/javascript">  
+      $(".clear").click(function(){
+        $("td").remove();
+      });
+    </script>
 
   <!-- the show template -->
   <script type="text/template" id="showTemplate">
