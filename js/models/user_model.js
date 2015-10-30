@@ -9,8 +9,8 @@ APP.UserModel = Backbone.Model.extend({
 
   validate: function (attrs) {
     var errors = {};
-    if (!attrs.name) errors.name = "Hey! Give this thing a name.";
-    if (!attrs.score) errors.score = "Put your name in dumb dumb...";
+    if (!attrs.name) errors.name = "please enter name";
+    if (!attrs.score) errors.score = "please enter score";
 
     if (!_.isEmpty(errors)) {
       return errors;
@@ -20,5 +20,8 @@ APP.UserModel = Backbone.Model.extend({
 
 APP.UserCollection = Backbone.Collection.extend({
   // Reference to this collection's model.
+   comparator: function(item) {
+      return item.get('score');
+    },
   model: APP.UserModel
 });
